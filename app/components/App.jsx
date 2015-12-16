@@ -1,44 +1,23 @@
-// import AltContainer from 'alt-container';
+import AltContainer from 'alt-container';
 import React from 'react';
 import Notes from './Notes.jsx';
 import NoteActions from '../actions/NoteActions.js';
 import NoteStore from '../stores/NoteStore';
-import AltContainer from 'alt-container';
+// import connect from '../decorators/connect';
 
 export default class App extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = NoteStore.getState();
-	}
-
-	componentDidMount() {
-		console.log("cdm")
-		NoteStore.listen( ()=> this.storeChange );
-	}
-
-	componentWillMount() {
-		console.log("cwm")
-		NoteStore.unlisten( ()=> this.storeChange );
-	}
-
-	storeChange() {
-		console.log("store change")
-		this.setState( state );
-	}
 
 	render() {
-		const notes = this.state.notes
 		return ( 
 			<div>
 				<button className="add-note" onClick={ () => this.addNote() } >+</button>
 			    <AltContainer 
 			    	stores={[NoteStore]}
-	          inject={{
+	          	inject={{
 	            items: () => NoteStore.getState().notes
 	          }}>
     				<Notes onEdit={this.editNote} onDelete={this.deleteNote} />
     			</AltContainer>
-
 	    </div>
 		); 
 	}
